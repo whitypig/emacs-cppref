@@ -62,6 +62,11 @@
 (defvar cppref-doc-dir nil
   "Your local directory in which C++ references are placed")
 
+(defvar cppref-open-in-the-same-window t
+  "t means a reference is opened in the current window.
+When nil, it try to open a reference in the other window, or
+already-opened w3m buffer window.")
+
 (defun cppref (name)
   "Show C++ reference along with arg `name' using w3m web
 browser."
@@ -93,7 +98,7 @@ browser."
     (if candidates
         (setq reference (cppref-select-from-multiple-choices
                          candidates)))
-    (cppref-visit-reference reference)))
+    (cppref-visit-reference reference cppref-open-in-the-same-window)))
 
 (defun cppref-select-from-multiple-choices (choices)
   (completing-read "multiple choices. push tab key. select :" choices nil t ""))
@@ -104,8 +109,10 @@ browser."
              (library-root (file-name-directory library-path)))
         (setq cppref-doc-dir (concat library-root "docs")))))
 
-(defun cppref-visit-reference (reference)
-  (w3m-find-file reference))
+(defun cppref-visit-reference (reference open-in-the-same-window)
+  (cond
+   (open-in-the-same-window (w3m-find-file reference))
+   (t (cppref-visit-reference-in-other-window reference))))
 
 (defun cppref-find-reference (dir name)
   (let ((candidates '())
@@ -126,5 +133,15 @@ browser."
               (push absolute-path candidates))))
     candidates))
 
+(defun cppref-visit-reference-in-other-window (reference)
+  "Open reference in some other window."
+  (message "DEBUG: cppref-visit-reference-in-other-window called"))
+
 (provide 'cppref)
 ;;; cppref.el ends here
+
+
+
+
+
+
