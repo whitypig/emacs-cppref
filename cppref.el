@@ -96,7 +96,7 @@ browser."
     (cppref-visit-reference reference)))
 
 (defun cppref-select-from-multiple-choices (choices)
-  (completing-read "multiple choies. push tab key. select :" choices nil t ""))
+  (completing-read "multiple choices. push tab key. select :" choices nil t ""))
 
 (defun cppref-init-doc-dir ()
   (if (not cppref-doc-dir)
