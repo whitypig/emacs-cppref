@@ -91,8 +91,8 @@ browser."
     (if (not reference)
         (error (concat "no document found for " name)))
     (if candidates
-	(setq reference (cppref-select-from-multiple-choices
-			 candidates)))
+        (setq reference (cppref-select-from-multiple-choices
+                         candidates)))
     (cppref-visit-reference reference)))
 
 (defun cppref-select-from-multiple-choices (choices)
@@ -114,16 +114,16 @@ browser."
     (loop for fn
           in (directory-files dir)
           do (setq absolute-path (concat dir "/" fn))
-             (if (file-directory-p absolute-path)
-                 (when (and (not (string-equal fn "."))
-                            (not (string-equal fn "..")))
-                   (if (string-match (concat name "$") absolute-path)
-                       (push (concat absolute-path "/start.html") candidates)
-                     (setq candidates
-                           (append (cppref-find-reference absolute-path name)
-                                   candidates))))
-               (when (string-match (concat name "\\.html$") absolute-path)
-                 (push absolute-path candidates))))
+          (if (file-directory-p absolute-path)
+              (when (and (not (string-equal fn "."))
+                         (not (string-equal fn "..")))
+                (if (string-match (concat name "$") absolute-path)
+                    (push (concat absolute-path "/start.html") candidates)
+                  (setq candidates
+                        (append (cppref-find-reference absolute-path name)
+                                candidates))))
+            (when (string-match (concat name "\\.html$") absolute-path)
+              (push absolute-path candidates))))
     candidates))
 
 (provide 'cppref)
