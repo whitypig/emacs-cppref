@@ -63,7 +63,7 @@
 (defvar cppref-doc-dir nil
   "Your local directory in which C++ references are placed")
 
-(defvar cppref-open-in-the-same-window t
+(defvar cppref-open-in-the-same-window nil
   "non nil means that a reference is opened in the current window.
 When nil, it try to open a reference in the other window, or
 already-opened w3m buffer window.")
