@@ -3,6 +3,7 @@
 ;; Copyright (C) 2009 Kentaro Kuribayashi
 
 ;; Author: Kentaro Kuribayashi, <kentarok@gmail.com>
+;; Modified by: whitypig <whitypig@gmailcom>
 ;; Keywords: C++
 
 ;; This file is free software; you can redistribute it and/or modify
@@ -63,7 +64,7 @@
   "Your local directory in which C++ references are placed")
 
 (defvar cppref-open-in-the-same-window t
-  "t means a reference is opened in the current window.
+  "non nil means that a reference is opened in the current window.
 When nil, it try to open a reference in the other window, or
 already-opened w3m buffer window.")
 
