@@ -135,13 +135,21 @@ browser."
 
 (defun cppref-visit-reference-in-other-window (reference)
   "Open reference in some other window."
-  (message "DEBUG: cppref-visit-reference-in-other-window called"))
+  (let ((w (get-buffer-window "*w3m*")))
+    (cond
+     (w (select-window w)
+        (w3m-find-file reference))
+     ((one-window-p)
+      ;; There is only one window in the current frame.
+      ;; So, let's split this window horizontally.
+      ;; TODO: make a user choose which way to split window.
+      ;; TODO: need to be refactored.
+      (split-window-horizontally)
+      (select-window (next-window))
+      (w3m-find-file reference))
+     (t
+      (select-window (next-window))
+      (w3m-find-file reference)))))
 
 (provide 'cppref)
 ;;; cppref.el ends here
-
-
-
-
-
-
