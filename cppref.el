@@ -63,9 +63,9 @@
 (defvar cppref-doc-dir nil
   "Your local directory in which C++ references are placed")
 
-(defvar cppref-open-in-the-same-window nil
+(defvar cppref-open-in-the-same-window t
   "non nil means that a reference is opened in the current window.
-When nil, it try to open a reference in the other window, or
+When nil, it try to open a reference in some other window, or
 already-opened w3m buffer window.")
 
 (defun cppref (name)
@@ -112,7 +112,7 @@ browser."
 
 (defun cppref-visit-reference (reference open-in-the-same-window)
   (cond
-   (open-in-the-same-window (w3m-find-file reference))
+   (cppref-open-in-the-same-window (w3m-find-file reference))
    (t (cppref-visit-reference-in-other-window reference))))
 
 (defun cppref-find-reference (dir name)
