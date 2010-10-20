@@ -71,7 +71,7 @@ already-opened w3m buffer window.")
 (defun cppref (name)
   "Show C++ reference along with arg `name' using w3m web
 browser."
-  (interactive "sName: ")
+  (interactive (cppref-read-primary-args))
   (cppref-init-doc-dir)
   (let ((candidates nil)
         (reference nil))
@@ -100,6 +100,23 @@ browser."
         (setq reference (cppref-select-from-multiple-choices
                          candidates)))
     (cppref-visit-reference reference cppref-open-in-the-same-window)))
+
+(defun cppref-read-primary-args ()
+  "Return a string entered from minibuffer or default"
+  (list (let* ((default (symbol-at-point))
+               (input
+                (read-from-minibuffer (if default
+                                          (format "Search for (default %s): " default)
+                                        "Search for: ")
+                                      nil       ;; initial-contents (obsolete)
+                                      nil       ;; keymap
+                                      nil       ;; read
+                                      nil       ;; hist
+                                      default   ;; default
+                                      )))
+          (if (string= input "")
+              (format "%s" default)
+            (format "%s" input)))))
 
 (defun cppref-select-from-multiple-choices (choices)
   (completing-read "multiple choices. push tab key. select :" choices nil t ""))
