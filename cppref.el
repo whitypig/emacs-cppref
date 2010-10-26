@@ -91,14 +91,15 @@ browser."
                 (list file)
               (cppref-find-reference cppref-doc-dir name))))
 
-    (setq reference  (car candidates))
-    (setq candidates (cdr candidates))
+    (cond
+     ((not candidates)
+      (error (concat "no document found for " name)))
+     ((= 1 (length candidates))
+      (setq reference (car candidates)))
+     ((> (length candidates) 1)
+      (setq reference (cppref-select-from-multiple-choices
+                       candidates))))
 
-    (if (not reference)
-        (error (concat "no document found for " name)))
-    (if candidates
-        (setq reference (cppref-select-from-multiple-choices
-                         candidates)))
     (cppref-visit-reference reference cppref-open-in-the-same-window)))
 
 (defun cppref-read-primary-args ()
